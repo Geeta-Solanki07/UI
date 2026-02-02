@@ -27,7 +27,7 @@ const techIcons: TechIcon[] = [
   { id: 7, rx: 480, ry: 165, duration: 45, logo: "https://cdn.simpleicons.org/go/00ADD8", category: "Back End" },
   { id: 8, rx: 480, ry: 165, duration: 45, logo: "https://cdn.simpleicons.org/postgresql/4169E1", category: "Database" },
   { id: 9, rx: 480, ry: 165, duration: 45, logo: "https://cdn.simpleicons.org/mongodb/47A048", category: "Database" },
-  { id: 10, rx: 480, ry: 165, duration: 45, logo: "https://cdn.simpleicons.org/docker/2496ED", category: "Cloud & DevOps" },
+  // { id: 10, rx: 480, ry: 165, duration: 45, logo: "https://cdn.simpleicons.org/docker/2496ED", category: "Cloud & DevOps" },
   { id: 11, rx: 480, ry: 165, duration: 45, logo: "https://cdn.simpleicons.org/googlecloud/4285F4", category: "Cloud & DevOps" },
   { id: 12, rx: 480, ry: 165, duration: 45, logo: "https://cdn.simpleicons.org/amazonaws/232F3E", category: "Cloud & DevOps" },
   { id: 13, rx: 300, ry: 105, duration: 35, logo: "https://cdn.simpleicons.org/kubernetes/326CE5", category: "Cloud & DevOps" },
