@@ -16,20 +16,14 @@ interface TechIcon {
 
 // --- Data ---
 const techIcons: TechIcon[] = [
-  // Ring 1 (Inner - 180px)
   { id: 1, rx: 180, ry: 65, duration: 25, logo: "https://cdn.simpleicons.org/react", name: "React", category: "Front End" },
   { id: 2, rx: 180, ry: 65, duration: 25, logo: "https://cdn.simpleicons.org/typescript", name: "TypeScript", category: "Languages" },
   { id: 3, rx: 180, ry: 65, duration: 25, logo: "https://cdn.simpleicons.org/nextdotjs/000000", name: "Next.js", category: "Front End" },
-  
-  // Ring 2 (Middle - 320px)
   { id: 4, rx: 320, ry: 110, duration: 35, logo: "https://cdn.simpleicons.org/nodedotjs", name: "Node.js", category: "Back End" },
   { id: 5, rx: 320, ry: 110, duration: 35, logo: "https://cdn.simpleicons.org/tailwindcss", name: "Tailwind CSS", category: "Front End" },
   { id: 6, rx: 320, ry: 110, duration: 35, logo: "https://cdn.simpleicons.org/postgresql", name: "PostgreSQL", category: "Database" },
   { id: 7, rx: 320, ry: 110, duration: 35, logo: "https://cdn.simpleicons.org/docker", name: "Docker", category: "Cloud & DevOps" },
   { id: 8, rx: 320, ry: 110, duration: 35, logo: "https://cdn.simpleicons.org/redis", name: "Redis", category: "Database" },
-  
-  // Ring 3 (Outer - 500px)
-  // { id: 9, rx: 500, ry: 175, duration: 45, logo: "https://cdn.simpleicons.org/amazonaws/FF9900", name: "AWS", category: "Cloud & DevOps" },
   { id: 10, rx: 500, ry: 175, duration: 45, logo: "https://cdn.simpleicons.org/python", name: "Python", category: "Back End" },
   { id: 11, rx: 500, ry: 175, duration: 45, logo: "https://cdn.simpleicons.org/mongodb", name: "MongoDB", category: "Database" },
   { id: 12, rx: 500, ry: 175, duration: 45, logo: "https://cdn.simpleicons.org/kubernetes", name: "Kubernetes", category: "Cloud & DevOps" },
@@ -42,10 +36,7 @@ const categories = ["All Technologies", "Front End", "Back End", "Database", "Cl
 
 const stackData = [
   { badge: "Technology ", main: "Accelerating Growth with", title: "Cutting-Edge Technologies" },
-  { badge: "Premium Technology Stack", main: "Dousoft 2026 Tech Stack Redesign", title: "Variant 2 of 2" },
-  // { badge: "Our Core Expertise", main: "Accelerating Growth with", title: "Cutting-Edge Tech" },
-  // { badge: "Premium Solutions", main: "Dousoft 2026 Tech Stack", title: "Scaling The Future" },
-  // { badge: "Global Standards", main: "High Performance via", title: "Modern Architecture" }
+  { badge: "Premium Technology Stack", main: "Dousoft 2026 Tech Stack Redesign", title: "Variant 2 of 2" },
 ];
 
 const TechStack: React.FC = () => {
@@ -60,13 +51,12 @@ const TechStack: React.FC = () => {
   }, []);
 
   const displayIcons = useMemo(() => {
-    const filtered = techIcons.filter((icon) => 
+    const filtered = techIcons.filter((icon) =>
       activeTab === "All Technologies" ? true : icon.category === activeTab
     );
     return filtered.map((icon) => {
       const iconsInSameRing = filtered.filter(i => i.rx === icon.rx);
       const iconPosition = iconsInSameRing.findIndex(i => i.id === icon.id);
-      // Even spacing for icons in the same orbit
       const spreadDelay = (icon.duration / iconsInSameRing.length) * iconPosition;
       return { ...icon, spreadDelay };
     });
@@ -75,17 +65,17 @@ const TechStack: React.FC = () => {
   return (
     <section className="relative w-full h-screen bg-[#FDFMFA] flex flex-col items-center justify-center overflow-hidden font-sans py-4">
       
-      {/* 1. Header Section */}
+      {/* Header Section */}
       <div className="relative z-[150] text-center px-4 max-w-5xl w-full flex flex-col items-center mb-6">
         <div className="h-10 mb-6">
           <AnimatePresence mode="popLayout">
-            <motion.div 
+            <motion.div
               key={`badge-${index}`}
-              initial={{ opacity: 0, y: 5 }} 
-              animate={{ opacity: 1, y: 0 }} 
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center bg-[#E7F9EE] text-[#039855] px-6 py-2 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] border border-[#C9EED8]"
+              className="inline-flex items-center bg-[#E7F9EE] text-[#039855] px-6 py-2 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] border border-[#C9EED8] animate-glow"
             >
               {stackData[index].badge}
             </motion.div>
@@ -102,22 +92,42 @@ const TechStack: React.FC = () => {
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="absolute w-full"
             >
-              <h2 className="text-[36px] md:text-[54px] font-black text-[#111827] leading-tight tracking-tighter">
-                {stackData[index].main} <br />
-                <span className="bg-gradient-to-r from-emerald-600 to-teal-800 bg-clip-text text-transparent italic">
+              <motion.h2
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.15 } }
+                }}
+                className="text-[36px] md:text-[54px] font-black text-[#111827] leading-tight tracking-tighter"
+              >
+                {stackData[index].main.split(" ").map((word, i) => (
+                  <motion.span
+                    key={i}
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                    className="inline-block mr-2"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+                <br />
+                <span className="bg-gradient-to-r from-emerald-600 to-teal-800 bg-clip-text text-transparent italic animate-text-shimmer">
                   {stackData[index].title}
                 </span>
-              </h2>
+              </motion.h2>
             </motion.div>
           </AnimatePresence>
         </div>
-        
+
         <p className="text-[#4B5563] text-base md:text-lg max-w-2xl font-medium opacity-80 mt-4">
           Empowering your digital transformation with a world-class selection of tools, frameworks, and infrastructure.
         </p>
       </div>
 
-      {/* 2. Filter Tabs */}
+      {/* Filter Tabs */}
       <div className="flex flex-wrap justify-center gap-2 z-[150] mb-8 bg-white/60 backdrop-blur-xl p-1.5 rounded-2xl border border-emerald-50 shadow-sm">
         {categories.map((cat) => (
           <button
@@ -134,7 +144,7 @@ const TechStack: React.FC = () => {
         ))}
       </div>
 
-      {/* 3. The Visual System */}
+      {/* Orbital Visual System */}
       <div className="relative w-full max-w-[1200px] h-[450px] flex items-center justify-center scale-90 lg:scale-100 flex-grow">
         <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible" viewBox="0 0 1200 600">
           <defs>
@@ -214,6 +224,22 @@ const TechStack: React.FC = () => {
         }
         :global(.animate-electric-flow) {
           animation: electric-flow 7s linear infinite;
+        }
+        @keyframes text-shimmer {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
+        }
+        :global(.animate-text-shimmer) {
+          background-size: 200% 200%;
+          animation: text-shimmer 4s linear infinite;
+        }
+        @keyframes glow {
+          0% { box-shadow: 0 0 5px #039855; }
+          50% { box-shadow: 0 0 20px #039855; }
+          100% { box-shadow: 0 0 5px #039855; }
+        }
+        :global(.animate-glow) {
+          animation: glow 2s ease-in-out infinite;
         }
       `}</style>
     </section>
